@@ -3,13 +3,11 @@ import KTE_artesian as kta
 import datetime as dt
 from dateutil.relativedelta import *
 
-
 def quarter_to_datetime(x):
     q = x.split(' ')[0]
     year = x.split(' ')[1]
     date = dt.datetime.strptime(year, '%y') + relativedelta(months=(int(q[1]) * 3) - 3)
     return date
-
 
 def genera_date_in_range(start, end):
     daterange = pd.date_range(start.strftime('%Y-%m-%d'), end.strftime('%Y-%m-%d'), freq='1M')
@@ -17,11 +15,10 @@ def genera_date_in_range(start, end):
     daterange = [(d - dt.timedelta(d.day - 1)) for d in daterange[1:-1]]
     return daterange
 
-
 def update_costi_logistica_gas(path):
     df = pd.read_excel(path,
                        sheet_name='variabili gas', usecols='I:T', skiprows=2, nrows=20)
-    print('arr')
+    #print('arr')
     df['Data'] = df.apply(lambda x: quarter_to_datetime(x['Quarter']), axis=1)
     df.set_index('Data', inplace=True)
 
