@@ -3,13 +3,16 @@ import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-path = 'Y:\\Clienti\\Arvedi\\GEFS\\Aggiorna parametri Book\\Input Book GEFS.xlsx'
+path = 'Y:/Clienti/Arvedi/GEFS/Aggiorna parametri Book/'
 
 
 class MyHandler(FileSystemEventHandler):
-    def on_modified(self, event):
+
+    @staticmethod
+    def on_any_event(event):
+        print(f'event type: {event.event_type}  path : {event.src_path}')
         print('ok')
-        clg.update_costi_logistica_gas(path)
+        clg.update_costi_logistica_gas(path + '/Input Book GEFS.xlsx')
 
 
 if __name__ == "__main__":
